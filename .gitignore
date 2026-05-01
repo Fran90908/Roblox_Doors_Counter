@@ -1,0 +1,22 @@
+# Entornos virtuales y caches
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# IDE
+.idea/
+.vscode/
+
+# PyInstaller — artefactos del build
+build/
+dist/
+*.spec
+
+# Sistema
+.DS_Store
+Thumbs.db
+
+# Configuración local del usuario (si llegamos a usarla algún día)
+*.local.json
