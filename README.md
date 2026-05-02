@@ -5,6 +5,12 @@ A counter for **Roblox Doors** with a floating pill in the style of Apple's
 
 ![Dynamic Island style — black pill at top center](docs/screenshot.png)
 
+## Why I made this
+
+I built this to keep track of door numbers while running the **Dupe** modifier
+on **max difficulty**. At that combo, counting in your head is impossible —
+and thanks to this counter, I finally beat **Hotel Hell**.
+
 ## Features
 
 - Always-on-top black pill, click-through (clicks pass through to the game).
