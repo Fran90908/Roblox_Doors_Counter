@@ -71,6 +71,19 @@ menu_segments = {}        # key -> list[tk.Button]  (botones de cada segmented r
 
 # ============== Lógica del contador ==============
 
+def _appropriate_main_font_size():
+    """Tamaño de fuente para el número grande. Se reduce en modo círculo
+    cuando hay 3+ dígitos (Floor 2 = 100+) para que entre centrado en 64px."""
+    if not is_minimized:
+        return FONT_SIZE_MAIN
+    digits = len(str(count))
+    if digits <= 2:
+        return FONT_SIZE_MAIN
+    if digits == 3:
+        return 22
+    return 16
+
+
 def update_labels():
     if root is None:
         return
@@ -82,6 +95,12 @@ def _do_update_labels():
         return
     if text_main is not None:
         canvas.itemconfigure(text_main, text=str(count))
+        # Reajustar fuente por si cambió el nº de dígitos
+        size = _appropriate_main_font_size()
+        canvas.itemconfigure(
+            text_main,
+            font=tkfont.Font(family="Segoe UI", size=-size, weight="bold"),
+        )
     if text_floor is not None and not is_minimized:
         canvas.itemconfigure(text_floor, text=f"FLOOR {floor}")
 
@@ -155,7 +174,9 @@ def relayout():
     else:
         _draw_pill(canvas, 0, 0, w, h, BG_COLOR)
 
-    f_main = tkfont.Font(family="Segoe UI", size=-FONT_SIZE_MAIN, weight="bold")
+    f_main = tkfont.Font(
+        family="Segoe UI", size=-_appropriate_main_font_size(), weight="bold"
+    )
     f_sub = tkfont.Font(family="Segoe UI", size=-FONT_SIZE_FLOOR)
 
     global text_main, text_floor

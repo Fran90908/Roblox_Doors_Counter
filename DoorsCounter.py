@@ -76,9 +76,30 @@ menu_status_label = None
 menu_segments = {}       # key ("floor"/"position"/"size"/"opacity") -> NSSegmentedControl
 
 
+def _appropriate_main_font_size():
+    """Tamaño de fuente para el número grande. Se reduce en modo círculo
+    cuando hay 3+ dígitos (Floor 2 = 100+) para que entre centrado en 64px."""
+    if not is_minimized:
+        return FONT_SIZE_MAIN
+    digits = len(str(count))
+    if digits <= 2:
+        return FONT_SIZE_MAIN
+    if digits == 3:
+        return 22
+    return 16
+
+
+def _make_main_font(size):
+    try:
+        return NSFont.monospacedDigitSystemFontOfSize_weight_(float(size), 0.6)
+    except Exception:
+        return NSFont.systemFontOfSize_(float(size))
+
+
 def update_labels():
     if label_main:
         label_main.setStringValue_(str(count))
+        label_main.setFont_(_make_main_font(_appropriate_main_font_size()))
     if label_floor:
         label_floor.setStringValue_(f"FLOOR {floor}")
 
@@ -145,6 +166,9 @@ def relayout():
         label_main.setFrame_(NSMakeRect(0, h * 0.36, w, h * 0.55))
         label_floor.setFrame_(NSMakeRect(0, h * 0.10, w, h * 0.20))
         label_floor.setHidden_(False)
+
+    # La fuente del número grande depende del modo y del nº de dígitos.
+    update_labels()
 
 
 def toggle_minimize():
