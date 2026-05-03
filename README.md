@@ -38,6 +38,8 @@ No Python, no setup — just download and open.
 - `F5` opens a settings panel with one-click selectors for floor, position,
   size, and opacity. Stays open while you change things.
 
+![Settings panel — F5 toggles it](docs/menu.png)
+
 ## Hotkeys
 
 | Action               | Mac                 | Windows                    |
