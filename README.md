@@ -93,3 +93,7 @@ build_windows.bat
 ```
 
 </details>
+
+---
+
+Released under the [MIT License](LICENSE).
